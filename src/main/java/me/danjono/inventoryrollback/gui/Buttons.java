@@ -449,7 +449,7 @@ public class Buttons {
             meta.setLore(lore);
         }
         
-        meta.setDisplayName(ChatColor.AQUA + "Force Saves");
+        meta.setDisplayName(ChatColor.AQUA + "Auto Saves");
 
         item.setItemMeta(meta);
 

@@ -77,6 +77,14 @@
             <version>3.12.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>lv.sidesurvival</groupId>
+            <artifactId>SurvivalCoreBukkit</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/SurvivalCoreBukkit.jar</systemPath>
+            <classifier>shaded</classifier>
+        </dependency>
 
     </dependencies>
 
@@ -108,33 +116,13 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.4</version>
                 <configuration>
-                    <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
-                    <filters>
-                        <filter>
-                            <artifact>io.papermc:paperlib</artifact>
-                            <includes>
-                                <include>io/papermc/lib/**</include>
-                            </includes>
-                            <excludes>
-                                <exclude>**/MANIFEST.MF</exclude>
-                            </excludes>
-                        </filter>
-                        <filter>
-                            <artifact>org.bstats:bstats-bukkit</artifact>
-                            <includes>
-                                <include>org/bstats/**</include>
-                            </includes>
-                            <excludes>
-                                <exclude>**/MANIFEST.MF</exclude>
-                            </excludes>
-                        </filter>
-                        <filter>
-                            <artifact>*:*</artifact>
-                            <excludes>
-                                <exclude>META-INF/maven/**</exclude>
-                            </excludes>
-                        </filter>
-                    </filters>
+                    <artifactSet>
+                        <includes>
+                            <include>io.papermc:paperlib</include>
+                            <include>org.bstats:*</include>
+                            <include>org.apache.commons:commons-lang3</include>
+                        </includes>
+                    </artifactSet>
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
@@ -145,6 +133,7 @@
                             <shadedPattern>${project.groupId}.paperlib</shadedPattern>
                         </relocation>
                     </relocations>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
                 </configuration>
                 <executions>
                     <execution>

@@ -2,6 +2,7 @@ package me.danjono.inventoryrollback.listeners;
 
 import com.nuclyon.technicallycoded.inventoryrollback.InventoryRollbackPlus;
 import com.nuclyon.technicallycoded.inventoryrollback.nms.EnumNmsVersion;
+import lv.sidesurvival.events.DataLoadedEvent;
 import me.danjono.inventoryrollback.config.ConfigData;
 import me.danjono.inventoryrollback.config.MessageData;
 import me.danjono.inventoryrollback.data.LogType;
@@ -30,15 +31,12 @@ public class EventLogs implements Listener {
 	}
 
 	@EventHandler
-	private void playerJoin(PlayerJoinEvent e) {
+	private void dataLoad(DataLoadedEvent e) {
 		if (!ConfigData.isEnabled()) return;
 
 		Player player = e.getPlayer();
 		if (player.hasPermission("inventoryrollbackplus.joinsave")) {
 			new SaveInventory(e.getPlayer(), LogType.JOIN, null, null, player.getInventory(), player.getEnderChest()).createSave(true);
-		}
-		if (player.hasPermission("inventoryrollbackplus.adminalerts")) {
-			// can send info to admins here
 		}
 	}
 
